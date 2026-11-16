@@ -146,3 +146,12 @@ def test_catchup_stops_when_one_source_fails(config, monkeypatch):
     assert cli.cmd_catchup(config, args) == 2
     state = json.loads((config.state_dir / "state.json").read_text()) if (config.state_dir / "state.json").exists() else {}
     assert "catchup" not in state  # January isn't marked done, so it gets fetched again next time
+
+
+def test_a_topic_can_use_its_own_openalex_fields(config, monkeypatch):
+    config.topics[2].openalex_fields = [22, 27]
+    seen = []
+    monkeypatch.setattr(cli.arxiv, "fetch", lambda *a, **k: [])
+    monkeypatch.setattr(cli.openalex, "fetch", lambda *a, **k: seen.append(k.get("fields")) or [])
+    cli.collect(config, date(2026, 11, 9), date(2026, 11, 16), date(2026, 11, 2), {})
+    assert seen == [[22, 27]]

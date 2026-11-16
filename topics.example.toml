@@ -46,6 +46,7 @@ arxiv_terms = ["gaussian splatting", "radiance field", "neural rendering"]
 # a venue only needs to be listed once.
 openalex_search = '"gaussian splatting" OR "radiance field" OR "neural rendering"'
 openalex_venues = ["ACM Transactions on Graphics", "Computer Graphics Forum"]
+# openalex_fields = [17, 22]  # this topic's own fields; 22 is Engineering, 27 Medicine
 
 # Papers you already keep. Their file names count as examples of what you like,
 # and anything already in these folders is never fetched again.

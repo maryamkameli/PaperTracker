@@ -101,7 +101,8 @@ def collect(cfg: Config, start: date, end: date, oa_start: date, cache: dict):
             jobs.append(("arXiv", lambda t=t: arxiv.fetch(t.arxiv_categories, t.arxiv_terms, start, end)))
         oa = dict(email=cfg.openalex_email, api_key=cfg.openalex_api_key)
         if t.openalex_search:
-            jobs.append(("OpenAlex", lambda t=t: openalex.fetch(oa_start, end, search=t.openalex_search, fields=cfg.openalex_fields, **oa)))
+            fields = cfg.openalex_fields if t.openalex_fields is None else t.openalex_fields
+            jobs.append(("OpenAlex", lambda t=t, fields=fields: openalex.fetch(oa_start, end, search=t.openalex_search, fields=fields, **oa)))
         if t.openalex_venues:
             def by_venue(t=t):
                 ids = openalex.resolve_sources(t.openalex_venues, cache, **oa)

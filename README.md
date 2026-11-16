@@ -49,7 +49,7 @@ Python 3.9 or newer works. If you have [uv](https://docs.astral.sh/uv/), setup u
 - a source: `arxiv_categories` (optionally narrowed with `arxiv_terms`), an `openalex_search` (boolean search over titles and abstracts), or `openalex_venues` (whole journals or proceedings, by name or OpenAlex id).
 - `threshold`: how close a paper has to be. Around 0.70 is a reasonable start for bge-small.
 
-Optional: `seed_folders` (folders of PDFs you already keep; their file names act as examples, and those papers are never fetched again) and `seed_titles`.
+Optional: `seed_folders` (folders of PDFs you already keep; their file names act as examples, and those papers are never fetched again), `seed_titles`, and `openalex_fields` when a topic's keyword search should look outside the global fields (a medical digital-twin topic wants Engineering and Medicine, for example).
 
 Every paper that's fetched is scored against every topic, so a venue only needs to be listed under one of them.
 

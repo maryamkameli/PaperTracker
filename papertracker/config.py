@@ -26,6 +26,7 @@ class Topic:
     arxiv_terms: list[str] = field(default_factory=list)
     openalex_search: str = ""
     openalex_venues: list[str] = field(default_factory=list)
+    openalex_fields: list[int] | None = None  # None: use the global setting
     seed_folders: list[str] = field(default_factory=list)
     seed_titles: list[str] = field(default_factory=list)
 
