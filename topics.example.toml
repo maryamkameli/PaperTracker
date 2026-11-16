@@ -1,0 +1,53 @@
+# Copy this to topics.toml (scripts/setup.sh does it for you) and make it yours.
+# topics.toml is gitignored, so your topics stay on your machine.
+
+# Where the daily lists, PDFs and library.csv go.
+output_dir = "~/Desktop/papertracker"
+
+# The one-time catch-up starts here:  python -m papertracker catchup
+since = 2025-01-01
+
+# Only the strongest matches get their PDF downloaded.
+pdfs_per_topic_per_day = 2
+catchup_pdfs_per_topic = 20
+
+# Optional. OpenAlex gives anonymous users 1000 credits a day, and a keyword
+# search page costs 10. A daily run needs about 50; the catch-up can need more,
+# and it simply continues the next day if the credits run out. A free key from
+# openalex.org raises the limit.
+openalex_email = ""
+openalex_api_key = ""
+
+# Keyword searches only keep works in these OpenAlex fields:
+# 17 Computer Science, 32 Psychology, 28 Neuroscience. Use [] for everything.
+openalex_fields = [17, 32, 28]
+
+# One block per topic. The statement is what every abstract gets compared with,
+# so write it the way you'd describe the work to a colleague. Specific beats short.
+[[topics]]
+id = "neural-rendering"
+name = "Neural rendering"
+statement = """
+Real-time neural rendering of 3D scenes: Gaussian splatting, radiance fields,
+and hybrid mesh and neural representations, especially work on speed, memory,
+anti-aliasing and editing. Less interested in pure 2D image generation.
+"""
+threshold = 0.70        # tune with: python -m papertracker run --dry-run --explain --days 7
+# pdf_threshold = 0.75  # defaults to threshold + 0.05
+
+# arXiv: categories, optionally narrowed by words that must appear somewhere.
+arxiv_categories = ["cs.GR", "cs.CV"]
+arxiv_terms = ["gaussian splatting", "radiance field", "neural rendering"]
+
+# OpenAlex: catches journals and proceedings that never show up on arXiv.
+# A boolean search over titles and abstracts, and/or whole venues. Venues can be
+# names or OpenAlex ids (S185367456); `python -m papertracker sources` shows
+# what each name matched. Every paper fetched is scored against every topic, so
+# a venue only needs to be listed once.
+openalex_search = '"gaussian splatting" OR "radiance field" OR "neural rendering"'
+openalex_venues = ["ACM Transactions on Graphics", "Computer Graphics Forum"]
+
+# Papers you already keep. Their file names count as examples of what you like,
+# and anything already in these folders is never fetched again.
+seed_folders = []
+seed_titles = []
